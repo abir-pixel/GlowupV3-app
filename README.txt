@@ -1,0 +1,1 @@
+Universal responsive GLOWUP PWA. Upload index.html and manifest.webmanifest to an HTTPS host such as GitHub Pages. The app adapts to phones, tablets and desktop browsers and shows animated onboarding on first launch.

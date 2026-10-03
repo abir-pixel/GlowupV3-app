@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b0f16">
+<title>GlowUp — Training Plan</title>
+<style>
+:root{--bg:#080b11;--card:#111722;--card2:#161e2b;--text:#f4f7fb;--muted:#9aa6b6;--accent:#6ee7b7;--accent2:#60a5fa;--line:#263142;--danger:#fb7185}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#070a10,#0b111a);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;min-height:100vh}
+.app{max-width:520px;margin:auto;padding:18px 16px 92px}.top{display:flex;justify-content:space-between;align-items:center;margin:8px 0 18px}.brand{font-size:25px;font-weight:800;letter-spacing:-.6px}.pill{font-size:12px;color:#07110c;background:var(--accent);padding:7px 10px;border-radius:999px;font-weight:800}
+.hero{background:linear-gradient(135deg,#142438,#102018);border:1px solid #29405a;border-radius:24px;padding:20px;box-shadow:0 16px 45px #0006}.eyebrow{color:var(--accent);font-size:12px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase}.hero h1{font-size:34px;line-height:1.02;margin:8px 0}.hero p{color:#b8c4d2;margin:0 0 16px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.stat{background:#081018aa;border:1px solid #ffffff12;border-radius:15px;padding:11px}.stat b{display:block;font-size:18px}.stat span{font-size:11px;color:var(--muted)}
+.section{margin-top:24px}.section h2{font-size:17px;margin:0 0 11px}.grid{display:grid;gap:10px}.day{background:var(--card);border:1px solid var(--line);border-radius:17px;padding:14px;display:flex;justify-content:space-between;align-items:center}.day .left{display:flex;gap:12px;align-items:center}.dot{width:10px;height:10px;border-radius:50%;background:var(--accent)}.day small{display:block;color:var(--muted);margin-top:3px}.time{color:#dbeafe;font-size:12px;font-weight:700}.workout{background:var(--card);border:1px solid var(--line);border-radius:19px;overflow:hidden}.workoutHead{padding:15px;background:linear-gradient(90deg,#142233,#111722);display:flex;justify-content:space-between}.workoutHead b{font-size:16px}.workoutHead span{font-size:11px;color:var(--accent);font-weight:800}.exercise{padding:13px 15px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:12px}.exercise b{font-size:14px}.exercise small{display:block;color:var(--muted);margin-top:3px}.sets{font-weight:800;color:#bfdbfe;white-space:nowrap}
+.btn{width:100%;border:0;border-radius:15px;padding:14px;background:var(--accent);color:#06100b;font-weight:900;font-size:15px;margin-top:12px}.secondary{background:#1a2534;color:#e8eef7;border:1px solid #2d3a4e}.timer{display:none;background:#0c141f;border:1px solid #2b3a4e;border-radius:18px;padding:17px;text-align:center;margin-top:12px}.timer.on{display:block}.timerNum{font-size:48px;font-weight:900;letter-spacing:-2px}.progressbar{height:9px;background:#202a39;border-radius:99px;overflow:hidden}.fill{height:100%;width:0;background:linear-gradient(90deg,var(--accent2),var(--accent));transition:.3s}.note{color:var(--muted);font-size:12px;line-height:1.5}.nav{position:fixed;bottom:0;left:0;right:0;background:#090d14eF;backdrop-filter:blur(18px);border-top:1px solid var(--line);padding:9px max(14px,calc((100vw - 520px)/2 + 14px));display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.nav button{background:none;border:0;color:var(--muted);font-weight:700;padding:9px}.nav button.active{color:var(--accent)}.page{display:none}.page.active{display:block}.check{accent-color:var(--accent);width:18px;height:18px}
+
+/* motion + form coach */
+@keyframes floatIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes pulse{0%,100%{transform:scale(1);box-shadow:0 0 0 0 #6ee7b744}50%{transform:scale(1.03);box-shadow:0 0 0 12px #6ee7b700}}
+.page.active{animation:floatIn .35s ease-out}.hero{animation:floatIn .45s ease-out}.day,.workout{transition:transform .18s ease,border-color .18s ease}.day:active,.workout:active{transform:scale(.99)}
+.form-card{background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden}.form-top{padding:15px;background:linear-gradient(90deg,#142233,#111722)}
+.form-row{display:flex;gap:8px;overflow:auto;padding:12px}.form-choice{flex:0 0 auto;border:1px solid var(--line);background:#101722;color:var(--text);border-radius:999px;padding:9px 12px;font-weight:800;font-size:12px}.form-choice.active{background:var(--accent);color:#06100b;border-color:var(--accent)}
+.camera-wrap{position:relative;aspect-ratio:4/3;background:#05070b;overflow:hidden}.camera-wrap video,.camera-wrap canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scaleX(-1)}.camera-wrap canvas{pointer-events:none}.camera-placeholder{position:absolute;inset:0;display:grid;place-items:center;color:var(--muted);padding:30px;text-align:center}.form-status{padding:14px 15px;display:flex;align-items:center;gap:10px}.status-dot{width:11px;height:11px;border-radius:50%;background:#94a3b8}.status-dot.good{background:var(--accent);animation:pulse 1.4s infinite}.status-dot.warn{background:#fbbf24}.status-dot.bad{background:var(--danger)}.form-msg{font-weight:800}.form-sub{font-size:12px;color:var(--muted);margin-top:3px}.tips{padding:0 15px 15px}.tip{padding:10px 0;border-top:1px solid var(--line);font-size:13px}.camera-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 15px 15px}.camera-btns .btn{margin:0}.mini{font-size:11px;color:var(--muted);line-height:1.5;padding:0 15px 15px}.demo{height:92px;display:grid;place-items:center;background:#0a111a;border-top:1px solid var(--line);overflow:hidden}.stick{width:110px;height:75px;position:relative}.stick i{position:absolute;background:#dbeafe;border-radius:10px;display:block}.head{width:14px;height:14px;border-radius:50%!important;left:48px;top:3px}.torso{width:8px;height:34px;left:51px;top:19px;transform:rotate(var(--r,0deg));transform-origin:top}.arm1,.arm2{width:7px;height:29px;top:22px;transform-origin:top}.arm1{left:46px;transform:rotate(35deg)}.arm2{left:57px;transform:rotate(-35deg)}.leg1,.leg2{width:7px;height:31px;top:50px;transform-origin:top}.leg1{left:50px;transform:rotate(22deg)}.leg2{left:55px;transform:rotate(-22deg)}
+
+/* Universal responsive layout */
+@media (min-width: 700px){.app{max-width:1100px;padding:28px 28px 110px}.top{max-width:1100px;margin-left:auto;margin-right:auto}.hero{padding:32px}.hero h1{font-size:52px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.workout{max-width:900px;margin:auto}.nav{left:50%;right:auto;transform:translateX(-50%);width:min(720px,calc(100% - 32px));border:1px solid var(--line);border-radius:18px 18px 0 0}.camera-wrap{max-width:800px;margin:auto}}
+@media (min-width: 1100px){.app{display:grid;grid-template-columns:1fr 1fr;gap:24px}.top{grid-column:1/-1}.page{min-width:0}.page.active{display:block}}
+@media (max-width: 420px){.app{padding-left:12px;padding-right:12px}.hero h1{font-size:30px}.stats{grid-template-columns:repeat(2,1fr)}}
+
+.onboarding{position:fixed;inset:0;z-index:9999;background:rgba(5,8,13,.97);display:grid;place-items:center;padding:20px;animation:obFade .45s ease}.onboard-card{width:min(620px,100%);background:#101722;border:1px solid #29364a;border-radius:28px;padding:28px;box-shadow:0 25px 80px #0008;animation:obUp .5s cubic-bezier(.2,.8,.2,1)}.onboard-logo{font-size:28px;font-weight:900;margin-bottom:24px}.onboard-logo span{color:var(--accent)}.onboard-progress{height:5px;background:#202b3a;border-radius:99px;overflow:hidden;margin-bottom:28px}.onboard-progress i{display:block;height:100%;width:20%;background:var(--accent);transition:.35s}.ob-title{font-size:32px;font-weight:900;letter-spacing:-1px}.ob-sub{color:var(--muted);margin:8px 0 22px;line-height:1.5}.ob-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.ob-option{border:1px solid #2c394c;background:#151e2b;color:var(--text);border-radius:16px;padding:16px;text-align:left;font-weight:800;font-size:15px;cursor:pointer}.ob-option.selected{border-color:var(--accent);background:#123025}.ob-next{width:100%;border:0;border-radius:16px;padding:16px;margin-top:18px;background:var(--accent);color:#06100b;font-weight:900;font-size:16px;cursor:pointer}@keyframes obFade{from{opacity:0}to{opacity:1}}@keyframes obUp{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:none}}
+
+/* Universal responsive layout */
+@media (min-width: 700px){.app{max-width:1100px;padding:28px 28px 110px}.top{max-width:1100px;margin-left:auto;margin-right:auto}.hero{padding:32px}.hero h1{font-size:52px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.workout{max-width:900px;margin:auto}.nav{left:50%;right:auto;transform:translateX(-50%);width:min(720px,calc(100% - 32px));border:1px solid var(--line);border-radius:18px 18px 0 0}.camera-wrap{max-width:800px;margin:auto}}
+@media (min-width: 1100px){.app{display:grid;grid-template-columns:1fr 1fr;gap:24px}.top{grid-column:1/-1}.page{min-width:0}.page.active{display:block}}
+@media (max-width: 420px){.app{padding-left:12px;padding-right:12px}.hero h1{font-size:30px}.stats{grid-template-columns:repeat(2,1fr)}}
+</style></head>
+<body><style>
+#onboard{position:fixed;inset:0;background:linear-gradient(160deg,#070a10,#102018);z-index:9999;display:grid;place-items:center;padding:22px;transition:opacity .45s,transform .45s}#onboard.hide{opacity:0;transform:scale(1.04);pointer-events:none}.ob-card{width:min(480px,100%);background:#111722;border:1px solid #2b3a4e;border-radius:28px;padding:26px;box-shadow:0 25px 80px #0008;animation:obIn .6s ease}.ob-logo{font-size:30px;font-weight:900;letter-spacing:-1px}.ob-logo span{color:var(--accent)}.ob-kicker{color:var(--accent);font-size:11px;font-weight:900;letter-spacing:1.8px;text-transform:uppercase;margin-top:24px}.ob-card h1{font-size:32px;line-height:1.05;margin:7px 0 8px}.ob-sub{color:var(--muted);font-size:14px;line-height:1.5;margin-bottom:20px}.ob-q{display:none}.ob-q.active{display:block;animation:fade .3s ease}.ob-label{font-size:14px;font-weight:800;margin-bottom:10px}.ob-options{display:grid;grid-template-columns:1fr 1fr;gap:9px}.ob-opt{border:1px solid var(--line);background:#0c141f;color:var(--text);border-radius:14px;padding:13px;text-align:left;font-weight:750}.ob-opt.sel{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent);background:#10241d}.ob-next{margin-top:16px}.ob-progress{height:5px;background:#202a39;border-radius:99px;overflow:hidden;margin-top:18px}.ob-progress i{display:block;height:100%;width:20%;background:var(--accent);transition:.3s}@keyframes obIn{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:none}}@keyframes fade{from{opacity:0;transform:translateX(10px)}to{opacity:1;transform:none}}
+.custom-badge{display:inline-block;color:#07110c;background:var(--accent);padding:5px 9px;border-radius:999px;font-size:10px;font-weight:900;margin-left:7px}
+</style><div id="onboard"><div class="ob-card"><div class="ob-logo">GLOWUP<span>.</span></div><div class="ob-kicker">Build your plan</div><h1>Let’s make it yours.</h1><p class="ob-sub">A few quick choices will personalize your weekly schedule and workouts. You can change them later.</p><div class="ob-q active" data-step="1"><div class="ob-label">What do you want to focus on?</div><div class="ob-options"><button class="ob-opt" data-key="goal" data-val="strength">Strength</button><button class="ob-opt" data-key="goal" data-val="fitness">General fitness</button><button class="ob-opt" data-key="goal" data-val="sport">Sport & movement</button><button class="ob-opt" data-key="goal" data-val="consistency">Build a routine</button></div></div><div class="ob-q" data-step="2"><div class="ob-label">How many workout days?</div><div class="ob-options"><button class="ob-opt" data-key="days" data-val="2">2 days</button><button class="ob-opt" data-key="days" data-val="3">3 days</button><button class="ob-opt" data-key="days" data-val="4">4 days</button><button class="ob-opt" data-key="days" data-val="5">5 days</button></div></div><div class="ob-q" data-step="3"><div class="ob-label">How long per session?</div><div class="ob-options"><button class="ob-opt" data-key="duration" data-val="20">20 min</button><button class="ob-opt" data-key="duration" data-val="30">30 min</button><button class="ob-opt" data-key="duration" data-val="40">40 min</button><button class="ob-opt" data-key="duration" data-val="50">50 min</button></div></div><div class="ob-q" data-step="4"><div class="ob-label">What equipment do you have?</div><div class="ob-options"><button class="ob-opt" data-key="equipment" data-val="none">None</button><button class="ob-opt" data-key="equipment" data-val="backpack">Backpack</button><button class="ob-opt" data-key="equipment" data-val="dumbbells">Dumbbells</button><button class="ob-opt" data-key="equipment" data-val="mixed">Mixed</button></div></div><div class="ob-q" data-step="5"><div class="ob-label">Which days work for you?</div><div class="ob-options" id="dayOptions"><button class="ob-opt" data-key="day" data-val="Sun">Sun</button><button class="ob-opt" data-key="day" data-val="Mon">Mon</button><button class="ob-opt" data-key="day" data-val="Tue">Tue</button><button class="ob-opt" data-key="day" data-val="Wed">Wed</button><button class="ob-opt" data-key="day" data-val="Thu">Thu</button><button class="ob-opt" data-key="day" data-val="Fri">Fri</button><button class="ob-opt" data-key="day" data-val="Sat">Sat</button></div></div><button id="obNext" class="btn ob-next">Continue</button><div class="ob-progress"><i id="obBar"></i></div></div></div>
+
+<div id="onboarding" class="onboarding" aria-hidden="true">
+ <div class="onboard-card">
+  <div class="onboard-logo">GLOWUP<span>.</span></div>
+  <div class="onboard-progress"><i id="obBar"></i></div>
+  <div id="obContent"></div>
+ </div>
+</div>
+<div class="app">
+  <div class="top"><div class="brand">GLOWUP<span style="color:var(--accent)">.</span></div><div class="pill">8–9 MONTHS</div></div>
+
+  <main id="home" class="page active">
+    <section class="hero"><div class="eyebrow">Today</div><h1>Build strength.<br>Stay consistent.</h1><p>A sporty routine built around school, study, play and gaming.</p><div class="stats"><div class="stat"><b id="done">0</b><span>workouts</span></div><div class="stat"><b>3×</b><span>strength / week</span></div><div class="stat"><b>8–10h</b><span>sleep target</span></div></div></section>
+    <section class="section"><h2>Weekly schedule</h2><div class="grid">
+      <div class="day"><div class="left"><span class="dot"></span><div><b>Sunday</b><small>Full body • 4:30–5:10 PM</small></div></div><span class="time">TRAIN</span></div>
+      <div class="day"><div class="left"><span class="dot"></span><div><b>Monday</b><small>Full body • 4:30–5:10 PM</small></div></div><span class="time">TRAIN</span></div>
+      <div class="day"><div class="left"><span class="dot" style="background:#94a3b8"></span><div><b>Tuesday</b><small>Rest • busy 8:00–9:50 PM</small></div></div><span class="time">REST</span></div>
+      <div class="day"><div class="left"><span class="dot"></span><div><b>Wednesday</b><small>Full body • 4:30–5:10 PM</small></div></div><span class="time">TRAIN</span></div>
+      <div class="day"><div class="left"><span class="dot" style="background:#60a5fa"></span><div><b>Thursday</b><small>Sport / play • flexible</small></div></div><span class="time">MOVE</span></div>
+      <div class="day"><div class="left"><span class="dot" style="background:#60a5fa"></span><div><b>Friday</b><small>Weekend • sport or optional workout</small></div></div><span class="time">FLEX</span></div>
+      <div class="day"><div class="left"><span class="dot" style="background:#94a3b8"></span><div><b>Saturday</b><small>Weekend • play or rest</small></div></div><span class="time">FLEX</span></div>
+    </div></section>
+    <section class="section"><h2>School-day timeline</h2><div class="grid">
+      <div class="day"><b>7:30 AM – 3:00 PM</b><span class="time">SCHOOL</span></div>
+      <div class="day"><b>3:00 – 3:30</b><span class="time">FOOD + RELAX</span></div>
+      <div class="day"><b>3:30 – 4:30</b><span class="time">STUDY</span></div>
+      <div class="day"><b>4:30 – 5:10</b><span class="time">WORKOUT</span></div>
+      <div class="day"><b>5:10 – 6:30</b><span class="time">PLAY / SPORT</span></div>
+      <div class="day"><b>6:30 – 7:30</b><span class="time">DINNER</span></div>
+      <div class="day"><b>7:30 – 8:30</b><span class="time">GAMING</span></div>
+      <div class="day"><b>8:30 – 9:15</b><span class="time">STUDY</span></div>
+      <div class="day"><b>9:15 – 9:45</b><span class="time">SHOWER + CHILL</span></div>
+      <div class="day"><b>~10:00</b><span class="time">WIND DOWN</span></div>
+    </div></section>
+  </main>
+
+  <main id="workouts" class="page">
+    <section class="hero"><div class="eyebrow">Training</div><h1>40-minute<br>full body.</h1><p>Three sessions each week. Start controlled, use good form, and progress gradually.</p></section>
+    <section class="section"><div class="workout"><div class="workoutHead"><b>DAY 1 • Sunday</b><span>3 ROUNDS</span></div>
+      <div class="exercise"><div><b>Push-ups</b><small>Chest + triceps</small></div><span class="sets">3 × 6–12</span></div>
+      <div class="exercise"><div><b>Backpack rows</b><small>Upper back</small></div><span class="sets">3 × 8–12</span></div>
+      <div class="exercise"><div><b>Bodyweight squats</b><small>Legs</small></div><span class="sets">3 × 8–12</span></div>
+      <div class="exercise"><div><b>Glute bridges</b><small>Glutes + hips</small></div><span class="sets">3 × 12–15</span></div>
+      <div class="exercise"><div><b>Plank</b><small>Core</small></div><span class="sets">3 × 20–40s</span></div>
+      <div class="exercise"><div><b>Calf raises</b><small>Lower legs</small></div><span class="sets">3 × 12–15</span></div></div></section>
+    <section class="section"><div class="workout"><div class="workoutHead"><b>DAY 2 • Monday</b><span>3 ROUNDS</span></div>
+      <div class="exercise"><div><b>Incline push-ups</b><small>Chest + shoulders</small></div><span class="sets">3 × 8–12</span></div>
+      <div class="exercise"><div><b>Backpack rows</b><small>Back + arms</small></div><span class="sets">3 × 8–12</span></div>
+      <div class="exercise"><div><b>Reverse lunges</b><small>Legs</small></div><span class="sets">2 × 8/leg</span></div>
+      <div class="exercise"><div><b>Glute bridges</b><small>Glutes</small></div><span class="sets">3 × 12–15</span></div>
+      <div class="exercise"><div><b>Dead bug</b><small>Core control</small></div><span class="sets">3 × 8/side</span></div>
+      <div class="exercise"><div><b>Biceps curls</b><small>Light backpack/band</small></div><span class="sets">2 × 10–15</span></div></div></section>
+    <section class="section"><div class="workout"><div class="workoutHead"><b>DAY 3 • Wednesday</b><span>3 ROUNDS</span></div>
+      <div class="exercise"><div><b>Push-ups</b><small>Chest + triceps</small></div><span class="sets">3 × 8–15</span></div>
+      <div class="exercise"><div><b>Backpack rows</b><small>Upper back</small></div><span class="sets">3 × 10–15</span></div>
+      <div class="exercise"><div><b>Squats</b><small>Legs</small></div><span class="sets">3 × 10–15</span></div>
+      <div class="exercise"><div><b>Calf raises</b><small>Lower legs</small></div><span class="sets">3 × 15–20</span></div>
+      <div class="exercise"><div><b>Bird dog</b><small>Core + back</small></div><span class="sets">3 × 8/side</span></div>
+      <div class="exercise"><div><b>Plank</b><small>Core</small></div><span class="sets">3 × 30–45s</span></div></div></section>
+    <button class="btn" onclick="startTimer(60)">Start 60-second rest timer</button><div id="timer" class="timer"><div class="timerNum" id="timerNum">60</div><div class="progressbar"><div class="fill" id="fill"></div></div><button class="btn secondary" onclick="stopTimer()">Stop</button></div>
+    <p class="note" style="margin-top:12px">If an exercise causes pain, stop it. You don't need to train through pain. Keep the movements controlled and focus on technique.</p>
+  </main>
+
+  <main id="form" class="page">
+    <section class="hero"><div class="eyebrow">Form coach</div><h1>Train smart.<br>Move clean.</h1><p>Use your camera for simple movement cues. This is a guide, not a medical or professional assessment.</p></section>
+    <section class="section"><div class="form-card">
+      <div class="form-top"><b>Choose an exercise</b><div class="form-row" id="formChoices">
+        <button class="form-choice active" data-ex="squat">Squat</button><button class="form-choice" data-ex="pushup">Push-up</button><button class="form-choice" data-ex="plank">Plank</button>
+      </div></div>
+      <div class="demo" id="demo"><div class="stick" id="stick"><i class="head"></i><i class="torso"></i><i class="arm1"></i><i class="arm2"></i><i class="leg1"></i><i class="leg2"></i></div></div>
+      <div class="camera-wrap"><video id="camera" playsinline muted></video><canvas id="poseCanvas"></canvas><div class="camera-placeholder" id="camPlaceholder">Tap “Start camera” and stand where your full body is visible.</div></div>
+      <div class="form-status"><span class="status-dot" id="statusDot"></span><div><div class="form-msg" id="formMsg">Camera off</div><div class="form-sub" id="formSub">Choose an exercise, then start the camera.</div></div></div>
+      <div class="camera-btns"><button class="btn" id="startCam">Start camera</button><button class="btn secondary" id="stopCam">Stop</button></div>
+      <div class="tips" id="tips"><div class="tip"><b>Squat:</b> keep your knees tracking in the same direction as your toes and keep your chest controlled.</div><div class="tip"><b>Setup:</b> use good lighting and place the phone far enough away to see your whole body.</div></div>
+      <div class="mini">The checker can miss things because camera angle, clothing, lighting and the phone position affect pose detection. Stop if something hurts and ask a parent/guardian or qualified professional for help if you have pain or an injury.</div>
+    </div></section>
+    <section class="section"><div class="workout"><div class="workoutHead"><b>Rest timer</b><span>QUICK SET</span></div><div style="padding:0 15px 15px"><button class="btn" onclick="startTimer(60)">Start 60-second timer</button></div></div></section>
+  </main>
+
+  <main id="progress" class="page">
+    <section class="hero"><div class="eyebrow">Progress</div><h1>Consistency<br>beats perfection.</h1><p>Track completed sessions. The goal is getting stronger and more capable over time.</p><div class="stats"><div class="stat"><b id="done2">0</b><span>completed</span></div><div class="stat"><b id="weeks">0</b><span>weeks tracked</span></div><div class="stat"><b>3×</b><span>weekly target</span></div></div></section>
+    <section class="section"><h2>This week</h2><div class="grid">
+      <label class="day"><span><b>Sunday workout</b><small>Mark when finished</small></span><input class="check" type="checkbox" data-day="sun"></label>
+      <label class="day"><span><b>Monday workout</b><small>Mark when finished</small></span><input class="check" type="checkbox" data-day="mon"></label>
+      <label class="day"><span><b>Wednesday workout</b><small>Mark when finished</small></span><input class="check" type="checkbox" data-day="wed"></label>
+    </div></section>
+    <section class="section"><h2>Recovery checklist</h2><div class="grid">
+      <div class="day"><b>8–10 hours sleep</b><span>😴</span></div>
+      <div class="day"><b>Regular balanced meals</b><span>🍽️</span></div>
+      <div class="day"><b>Play / sport / movement</b><span>⚽</span></div>
+      <div class="day"><b>Rest when you need it</b><span>🛌</span></div>
+    </div></section>
+  </main>
+</div>
+<nav class="nav"><button class="active" data-page="home">Home</button><button data-page="workouts">Train</button><button data-page="form">Form</button><button data-page="progress">Progress</button></nav>
+
+<script>
+(function(){
+ const key='glowupProfile'; let profile=JSON.parse(localStorage.getItem(key)||'null');
+ if(profile){document.getElementById('onboarding').style.display='none';return;}
+ const qs=[
+  ['goal','What do you want to focus on?',['Strength','General fitness','Sport','Healthy routine']],
+  ['days','How many days do you want to train?',['2 days','3 days','4 days','5 days']],
+  ['time','How long should each workout be?',['20 minutes','30 minutes','40 minutes','50 minutes']],
+  ['equipment','What equipment do you have?',['None','Backpack','Dumbbells','Mixed']],
+  ['schedule','When do you prefer to train?',['Weekdays','Weekends','Mixed']]
+ ]; let i=0, answers={}; const root=document.getElementById('onboarding'),c=document.getElementById('obContent'),bar=document.getElementById('obBar');
+ function render(){const q=qs[i];bar.style.width=((i+1)/qs.length*100)+'%';c.innerHTML='<div class="ob-title">'+q[1]+'</div><div class="ob-sub">Pick what fits you. You can change it later.</div><div class="ob-options">'+q[2].map(x=>'<button class="ob-option '+(answers[q[0]]===x?'selected':'')+'" data-v="'+x+'">'+x+'</button>').join('')+'</div><button class="ob-next">'+(i===qs.length-1?'Build my plan':'Continue')+'</button>';
+ c.querySelectorAll('.ob-option').forEach(b=>b.onclick=()=>{answers[q[0]]=b.dataset.v;render()});
+ c.querySelector('.ob-next').onclick=()=>{if(!answers[q[0]])return;if(i<qs.length-1){i++;render()}else{localStorage.setItem(key,JSON.stringify(answers));root.animate([{opacity:1},{opacity:0}],{duration:350}).onfinish=()=>root.style.display='none';applyPlan(answers)}}}
+ function applyPlan(a){document.querySelectorAll('.pill').forEach(x=>x.textContent=a.days?.replace(' days','×')||'CUSTOM');const hero=document.querySelector('.hero h1');if(hero)hero.innerHTML='Your plan.<br>Built for you.';const p=document.querySelector('.hero p');if(p)p.textContent=a.goal+' • '+a.days+' • '+a.time+' • '+a.equipment;}
+ render();
+})();
+</script>
+<script>
+const pages=document.querySelectorAll('.page'),nav=document.querySelectorAll('.nav button');
+nav.forEach(b=>b.onclick=()=>{pages.forEach(p=>p.classList.remove('active'));document.getElementById(b.dataset.page).classList.add('active');nav.forEach(x=>x.classList.remove('active'));b.classList.add('active');scrollTo(0,0)});
+let completed=JSON.parse(localStorage.getItem('completed')||'{}');
+document.querySelectorAll('.check').forEach(c=>{c.checked=!!completed[c.dataset.day];c.onchange=()=>{completed[c.dataset.day]=c.checked;localStorage.setItem('completed',JSON.stringify(completed));update()}});
+function update(){let n=Object.values(completed).filter(Boolean).length;document.getElementById('done').textContent=n;document.getElementById('done2').textContent=n;document.getElementById('weeks').textContent=Math.floor(n/3)} update();
+let timerId;function startTimer(sec){clearInterval(timerId);let box=document.getElementById('timer'),num=document.getElementById('timerNum'),fill=document.getElementById('fill');if(!box)return;box.classList.add('on');let left=sec;num.textContent=left;fill.style.width='0%';timerId=setInterval(()=>{left--;num.textContent=left;fill.style.width=((sec-left)/sec*100)+'%';if(left<=0){clearInterval(timerId);num.textContent='DONE';navigator.vibrate?.([120,80,120]);}},1000)}
+function stopTimer(){clearInterval(timerId);let t=document.getElementById('timer');if(t)t.classList.remove('on')}
+
+// Lightweight camera form coach. MediaPipe Pose is loaded only when requested.
+let pose=null,cameraStream=null,raf=null,currentEx='squat',lastFeedback='';
+const exButtons=document.querySelectorAll('.form-choice');
+exButtons.forEach(b=>b.onclick=()=>{exButtons.forEach(x=>x.classList.remove('active'));b.classList.add('active');currentEx=b.dataset.ex;updateTips();if(pose) setStatus('good','Exercise changed', 'Set your body fully inside the frame.');animateDemo();});
+function updateTips(){const t=document.getElementById('tips');const data={squat:['<b>Squat:</b> keep knees tracking with toes and control the descent.','<b>Camera:</b> side or 45° view works best; keep your whole body visible.'],pushup:['<b>Push-up:</b> keep your body in a mostly straight line and elbows controlled.','<b>Camera:</b> side view works best; put the phone low enough to see your full body.'],plank:['<b>Plank:</b> keep your head, shoulders, hips and legs in one controlled line.','<b>Camera:</b> side view works best; avoid letting your hips sag or lift high.']}[currentEx];t.innerHTML='<div class="tip">'+data[0]+'</div><div class="tip">'+data[1]+'</div>'}
+function setStatus(kind,msg,sub){const d=document.getElementById('statusDot');d.className='status-dot '+(kind||'');document.getElementById('formMsg').textContent=msg;document.getElementById('formSub').textContent=sub;}
+function angle(a,b,c){const ab={x:a.x-b.x,y:a.y-b.y},cb={x:c.x-b.x,y:c.y-b.y};const dot=ab.x*cb.x+ab.y*cb.y;const mag=Math.hypot(ab.x,ab.y)*Math.hypot(cb.x,cb.y);return Math.acos(Math.max(-1,Math.min(1,dot/(mag||1))))*180/Math.PI}
+function point(lm,n){return lm[n]}
+function checkPose(lm){
+  const L={sh:11,el:13,wr:15,hip:23,knee:25,ankle:27}, R={sh:12,el:14,wr:16,hip:24,knee:26,ankle:28};
+  const p=side=>side==='L'?L:R; let vals=[];
+  try{
+    if(currentEx==='squat'){
+      const k=angle(point(lm,p('L').hip),point(lm,p('L').knee),point(lm,p('L').ankle));
+      const k2=angle(point(lm,p('R').hip),point(lm,p('R').knee),point(lm,p('R').ankle));
+      const knee=(k+k2)/2;
+      if(knee<55) setStatus('warn','Go a little higher','Keep the descent controlled and knees tracking with toes.');
+      else if(knee<105) setStatus('good','Squat position looks controlled','Keep your chest steady and knees tracking with toes.');
+      else setStatus('good','Standing / ready','Lower slowly and keep your whole foot grounded.');
+    } else if(currentEx==='pushup'){
+      const elbow=(angle(point(lm,L.sh),point(lm,L.el),point(lm,L.wr))+angle(point(lm,R.sh),point(lm,R.el),point(lm,R.wr)))/2;
+      const body=(angle(point(lm,L.sh),point(lm,L.hip),point(lm,L.ankle))+angle(point(lm,R.sh),point(lm,R.hip),point(lm,R.ankle)))/2;
+      if(body<155) setStatus('warn','Keep a straighter line','Brace your core and avoid letting your hips drop.');
+      else if(elbow<75) setStatus('good','Bottom position','Press up smoothly without locking hard.');
+      else setStatus('good','Top / ready','Lower with control and keep elbows comfortable.');
+    } else {
+      const body=(angle(point(lm,L.sh),point(lm,L.hip),point(lm,L.ankle))+angle(point(lm,R.sh),point(lm,R.hip),point(lm,R.ankle)))/2;
+      if(body<155) setStatus('warn','Adjust your body line','Try to keep shoulders, hips and ankles aligned.');
+      else setStatus('good','Plank line looks solid','Keep breathing and hold a comfortable position.');
+    }
+  }catch(e){setStatus('warn','Move into view','Make sure your full body is visible.');}
+}
+function onResults(results){const canvas=document.getElementById('poseCanvas'),ctx=canvas.getContext('2d'),v=document.getElementById('camera');canvas.width=v.videoWidth||640;canvas.height=v.videoHeight||480;ctx.clearRect(0,0,canvas.width,canvas.height);if(!results.poseLandmarks)return;ctx.save();ctx.scale(-1,1);ctx.translate(-canvas.width,0);ctx.fillStyle='#6ee7b7';for(const q of results.poseLandmarks){ctx.beginPath();ctx.arc(q.x*canvas.width,q.y*canvas.height,4,0,Math.PI*2);ctx.fill()}ctx.restore();checkPose(results.poseLandmarks)}
+async function loadPose(){if(pose)return;setStatus('warn','Loading form coach…','One moment.');await new Promise((resolve,reject)=>{const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/@mediapipe/pose/pose.js';s.onload=resolve;s.onerror=reject;document.head.appendChild(s)});pose=new Pose({locateFile:(file)=>`https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`});pose.setOptions({modelComplexity:1,smoothLandmarks:true,minDetectionConfidence:.55,minTrackingConfidence:.55});pose.onResults(onResults)}
+async function startCamera(){try{await loadPose();cameraStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user',width:{ideal:720},height:{ideal:540}},audio:false});const v=document.getElementById('camera');v.srcObject=cameraStream;await v.play();document.getElementById('camPlaceholder').style.display='none';setStatus('good','Camera on','Move until your whole body is visible.');const loop=async()=>{if(!cameraStream)return;try{await pose.send({image:v})}catch(e){}raf=requestAnimationFrame(loop)};loop()}catch(e){setStatus('bad','Camera unavailable','Allow camera access and use Safari/Chrome on a secure page.');}}
+function stopCamera(){if(cameraStream){cameraStream.getTracks().forEach(t=>t.stop());cameraStream=null}cancelAnimationFrame(raf);document.getElementById('camPlaceholder').style.display='grid';document.getElementById('poseCanvas').getContext('2d').clearRect(0,0,9999,9999);setStatus('','Camera off','Choose an exercise, then start the camera.')}
+document.getElementById('startCam').onclick=startCamera;document.getElementById('stopCam').onclick=stopCamera;updateTips();
+function animateDemo(){const s=document.getElementById('stick');if(!s)return;s.animate([{transform:'translateY(0)'},{transform:'translateY(4px)'},{transform:'translateY(0)'}],{duration:900,iterations:2});}
+animateDemo();
+</script>
+<script>
+(function(){const O=document.getElementById('onboard'),qs=[...document.querySelectorAll('.ob-q')],next=document.getElementById('obNext'),bar=document.getElementById('obBar');let step=1,cfg=JSON.parse(localStorage.getItem('glowupConfig')||'null')||{goal:'fitness',days:3,duration:40,equipment:'none',day:[]};function render(){qs.forEach(q=>q.classList.toggle('active',+q.dataset.step===step));bar.style.width=(step/5*100)+'%';next.textContent=step===5?'Build my plan':'Continue';document.querySelectorAll('.ob-opt').forEach(b=>{const k=b.dataset.key,v=b.dataset.val;if(k==='day')b.classList.toggle('sel',(cfg.day||[]).includes(v));else b.classList.toggle('sel',String(cfg[k])===v)})}document.querySelectorAll('.ob-opt').forEach(b=>b.onclick=()=>{const k=b.dataset.key,v=b.dataset.val;if(k==='day'){cfg.day=cfg.day||[];if(cfg.day.includes(v))cfg.day=cfg.day.filter(x=>x!==v);else if(cfg.day.length<Number(cfg.days||3))cfg.day.push(v)}else cfg[k]=v;render()});next.onclick=()=>{if(step<5){step++;render()}else{if(!cfg.day||cfg.day.length<Number(cfg.days)){cfg.day=[];const all=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];cfg.day=all.slice(0,Number(cfg.days));}localStorage.setItem('glowupConfig',JSON.stringify(cfg));localStorage.setItem('glowupOnboarded','1');O.classList.add('hide');setTimeout(()=>O.remove(),500);applyConfig(cfg)}};function applyConfig(c){document.querySelectorAll('.pill').forEach(x=>x.innerHTML=(c.duration||40)+' MIN • '+(c.days||3)+' DAYS <span class="custom-badge">CUSTOM</span>');const hero=document.querySelector('#home .hero p');if(hero)hero.textContent='A plan built around your goals, schedule, session length and equipment.';const wh=document.querySelector('#workouts .hero h1');if(wh)wh.innerHTML=(c.duration||40)+'-minute<br>custom plan.';const sub=document.querySelector('#workouts .hero p');if(sub)sub.textContent=(c.days||3)+' sessions each week • '+(c.equipment||'none')+' equipment • '+(c.goal||'fitness')+' focus.'}window.editPlan=function(){document.body.appendChild(O);O.classList.remove('hide');step=1;render()};if(localStorage.getItem('glowupOnboarded')==='1'){O.remove();applyConfig(cfg)}else render()})();
+</script></body></html>

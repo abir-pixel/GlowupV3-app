@@ -1,0 +1,10 @@
+{
+  "name": "GLOWUP.",
+  "short_name": "GLOWUP.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#080b11",
+  "theme_color": "#0b0f16",
+  "orientation": "any",
+  "icons": []
+}
